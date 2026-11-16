@@ -74,8 +74,68 @@ The intent classifier predicts dialogue intent.
 Price-limit validation and negotiation decisions are
 handled separately by rule-based agent logic.
 
-### Future Integration
+### Integration Status
 
-The trained classifier will be integrated into the
-Negotiation Analyst Agent and connected to the
-Buyer, Seller and Mediator Agents.
+The trained classifier is integrated into the Negotiation Analyst Agent. The Mediator, Analyst, Risk Analyzer and Gen AI response generator are connected through the negotiation support coordinator.
+
+### Member 3: Mediator, Analyst, Risk Analyzer and Gen AI
+
+#### Implemented Modules
+
+1. **Mediator Agent** (`agents/mediator_agent.py`)
+   - Checks whether buyer and seller price limits overlap.
+   - Calculates a midpoint compromise suggestion.
+   - Does not guarantee acceptance of the suggested price.
+
+2. **Negotiation Analyst** (`agents/analyst_agent.py`)
+   - Uses the trained Improved BiLSTM intent predictor.
+   - Predicts negotiation intent and confidence score.
+   - Provides interpretations and warnings.
+
+3. **Risk Analyzer** (`core/risk_analyzer.py`)
+   - Detects offers outside acceptable price limits.
+   - Detects repeated rejections and stalled price movement.
+   - Identifies situations with no feasible price overlap.
+
+4. **Gen AI Response Generator** (`genai/response_generator.py`)
+   - Uses Ollama with the `llama3.2:3b` model.
+   - Generates polite negotiation responses.
+   - Validates generated responses against price and acceptance restrictions.
+   - Uses predefined fallback responses if Ollama is unavailable or output is rejected.
+
+5. **Integration Coordinator** (`core/negotiation_support.py`)
+   - Connects the Mediator, Analyst, Risk Analyzer and Gen AI modules.
+   - Provides a structured result for application integration.
+   - Does not include the exact buyer maximum or seller minimum in its returned result.
+
+#### Running the Modules
+
+Run commands from the project root:
+
+```powershell
+python -m agents.mediator_agent
+python -m agents.analyst_agent
+python -m core.risk_analyzer
+python -m genai.response_generator
+python -m core.negotiation_support
+```
+
+Ollama must be installed and running with the `llama3.2:3b` model for local LLM response generation. The response generator provides a fallback when Ollama is unavailable.
+
+#### Running Tests
+
+Run the complete test suite:
+
+```powershell
+python -m pytest tests/ -v
+```
+
+Latest local test result: **65 passed, 1 warning**.
+
+The warning is a pytest compatibility deprecation warning from the installed AnyIO plugin.
+
+The integration coordinator connects Member 3's support modules. The automated Buyer-Seller negotiation workflow remains implemented separately.
+
+### Updated Integration Status
+
+The trained intent classifier is integrated into the Negotiation Analyst Agent. The Mediator, Analyst, Risk Analyzer and Gen AI response generator are connected through the negotiation support coordinator.
