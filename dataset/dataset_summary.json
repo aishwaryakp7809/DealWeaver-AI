@@ -1,0 +1,55 @@
+{
+    "dataset_name": "Craigslist Bargains",
+    "source": "Stanford NLP",
+    "original_conversations": {
+        "train": 5247,
+        "validation": 597,
+        "test": 838
+    },
+    "clean_conversations": {
+        "train": 5247,
+        "validation": 582,
+        "test": 825
+    },
+    "extracted_messages": {
+        "train": 26316,
+        "validation": 2996,
+        "test": 0
+    },
+    "unique_training_conversations": 4010,
+    "unique_validation_conversations": 453,
+    "intent_classes": [
+        "agree",
+        "counter-price",
+        "disagree",
+        "inform",
+        "init-price",
+        "inquiry",
+        "insist",
+        "intro",
+        "vague-price"
+    ],
+    "training_intent_distribution": {
+        "counter-price": 7245,
+        "inquiry": 4674,
+        "init-price": 4054,
+        "intro": 3747,
+        "inform": 2200,
+        "disagree": 1909,
+        "agree": 1731,
+        "insist": 388,
+        "vague-price": 368
+    },
+    "validation_intent_distribution": {
+        "counter-price": 821,
+        "inquiry": 531,
+        "init-price": 463,
+        "intro": 415,
+        "inform": 248,
+        "disagree": 217,
+        "agree": 198,
+        "insist": 59,
+        "vague-price": 44
+    },
+    "test_limitation": "The original test split contained no usable labelled intent messages. Model evaluation was therefore performed on the validation split."
+}

@@ -1,0 +1,11 @@
+{
+    "agree": 0,
+    "counter-price": 1,
+    "disagree": 2,
+    "inform": 3,
+    "init-price": 4,
+    "inquiry": 5,
+    "insist": 6,
+    "intro": 7,
+    "vague-price": 8
+}
